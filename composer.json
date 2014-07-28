@@ -20,7 +20,7 @@
 			"name": "Mirocow",
 			"email": "mr.mirocow@gmail.com",
 			"homepage": "http://mirocow.com/"
-		},		
+		}		
 	],
 	"require": {
 		"yiisoft/yii2": "*",
