@@ -4,7 +4,7 @@
  * @author Revin Roman http://phptime.ru
  */
 
-namespace rmrevin\yii\minify;
+namespace mirocow\minify;
 
 use yii\helpers\FileHelper;
 use yii\helpers\Html;
