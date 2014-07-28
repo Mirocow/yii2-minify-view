@@ -48,6 +48,10 @@ class View extends \yii\web\View
      */
     public $schemas = ['//', 'http://', 'https://', 'ftp://'];
 
+    public $minify_css = true;
+
+    public $minify_js = true;
+
     public function init()
     {
         parent::init();
@@ -86,7 +90,7 @@ class View extends \yii\web\View
             ]
         );
 
-        $this->clear();
+        //$this->clear();
     }
 
     protected function registerAssetFiles($name)
@@ -109,9 +113,13 @@ class View extends \yii\web\View
 
     private function minify()
     {
-        $this
-            ->minifyCSS()
-            ->minifyJS();
+        if($this->minify_css){
+            $this->minifyCSS();
+        }
+
+        if($this->minify_js){
+            $this->minifyJS();
+        }
     }
 
     /**
@@ -240,6 +248,9 @@ class View extends \yii\web\View
                     $long_hash = '';
                     foreach ($files as $file => $html) {
                         $file = \Yii::getAlias($this->base_path) . $file;
+                        if(!is_file($file)){
+                          continue;
+                        }
                         $hash = sha1_file($file);
                         $long_hash .= $hash;
                     }
@@ -249,6 +260,9 @@ class View extends \yii\web\View
                         $js = '';
                         foreach ($files as $file => $html) {
                             $file = \Yii::getAlias($this->base_path) . $file;
+                            if(!is_file($file)){
+                              continue;
+                            }
                             $js .= file_get_contents($file) . ';' . PHP_EOL;
                         }
 
@@ -258,10 +272,26 @@ class View extends \yii\web\View
                         chmod($js_minify_file, $this->file_mode);
                     }
 
+                    // Include remote file
+                    foreach ($files as $file => $html) {
+                      if(preg_match('~^https*://~', $file)){
+                        $this->jsFiles[$position][$file] = $html;
+                        continue;
+                      }
+                    }
+
                     $js_file = str_replace(\Yii::getAlias($this->base_path), '', $js_minify_file);
                     $this->jsFiles[$position][$js_file] = Html::jsFile($js_file);
                 }
             }
+        }
+
+        if (!empty($this->js)) {
+          foreach ($this->js as $position => &$codes) {
+            foreach($codes as &$code){
+              $code = (new \JSMin($code))->min();
+            }
+          }
         }
 
         return $this;
