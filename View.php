@@ -43,6 +43,8 @@ class View extends \yii\web\View
      */
     public $file_mode = 0664;
 
+    public $js_len_to_minify = 2000;
+
     /**
      * @var array schemes that will be ignored during normalization url
      */
@@ -285,12 +287,55 @@ class View extends \yii\web\View
                 }
             }
         }
+        
+        $ready = [];
 
         if (!empty($this->js)) {
           foreach ($this->js as $position => &$codes) {
-            foreach($codes as &$code){
-              $code = (new \JSMin($code))->min();
+            //if($position <> self::POS_READY){
+              foreach($codes as $n => &$code){
+                
+                $code = (new \JSMin($code))->min();
+                if(strlen($code) > $this->js_len_to_minify){
+                  
+                  if($position <> self::POS_READY){
+                    
+                    $js_minify_file = $this->minify_path . DIRECTORY_SEPARATOR . sha1($code) . '.js';
+                    if (!file_exists($js_minify_file)) {
+                      file_put_contents($js_minify_file, $code);
+                    }
+                    $js_file = str_replace(\Yii::getAlias($this->base_path), '', $js_minify_file);
+                                    
+                    $this->jsFiles[$position][$js_file] = Html::jsFile($js_file);
+                    
+                  } else {
+                    
+                    $ready[] = $code;
+                    
+                  }
+                  
+                  
+                }
+                
+                unset($this->js[$position]);
+                
+              }
+            //}
+          }
+                    
+          if($ready){
+            
+            $code = implode('', $ready);
+            
+            $js_minify_file = $this->minify_path . DIRECTORY_SEPARATOR . sha1($code) . '.js';
+            
+            if (!file_exists($js_minify_file)) {
+              file_put_contents($js_minify_file, $code);
             }
+            $js_file = str_replace(\Yii::getAlias($this->base_path), '', $js_minify_file);            
+            
+            $this->jsFiles[ self::POS_END ][$js_file] = Html::jsFile($js_file);
+            
           }
         }
 
