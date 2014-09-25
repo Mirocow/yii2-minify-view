@@ -327,6 +327,8 @@ class View extends \yii\web\View
             
             $code = implode('', $ready);
             
+            $code = "jQuery(document).ready(function(){\n" . $code . "\n});";
+            
             $js_minify_file = $this->minify_path . DIRECTORY_SEPARATOR . sha1($code) . '.js';
             
             if (!file_exists($js_minify_file)) {
