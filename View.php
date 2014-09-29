@@ -43,7 +43,7 @@ class View extends \yii\web\View
      */
     public $file_mode = 0664;
 
-    public $js_len_to_minify = 2000;
+    public $js_len_to_minify = 2000; // not used
 
     /**
      * @var array schemes that will be ignored during normalization url
@@ -296,7 +296,7 @@ class View extends \yii\web\View
                 
                 $code = (new \JSMin($code))->min();
                 
-                if(strlen($code) > $this->js_len_to_minify){
+                //if(strlen($code) > $this->js_len_to_minify){
                   
                   if($position <> self::POS_READY){
                     
@@ -310,11 +310,13 @@ class View extends \yii\web\View
                     
                   } else {
                     
-                    $ready[] = $code;
+                    $ready[] = $code;                                        
                     
                   }
                   
-                }
+                  unset($this->js[$position]);
+                  
+                //}
                 
               }
           }
