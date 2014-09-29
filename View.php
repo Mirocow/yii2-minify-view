@@ -292,10 +292,10 @@ class View extends \yii\web\View
 
         if (!empty($this->js)) {
           foreach ($this->js as $position => &$codes) {
-            //if($position <> self::POS_READY){
-              foreach($codes as $n => &$code){
+              foreach($codes as &$code){
                 
                 $code = (new \JSMin($code))->min();
+                
                 if(strlen($code) > $this->js_len_to_minify){
                   
                   if($position <> self::POS_READY){
@@ -314,18 +314,14 @@ class View extends \yii\web\View
                     
                   }
                   
-                  
                 }
                 
-                unset($this->js[$position]);
-                
               }
-            //}
           }
                     
           if($ready){
             
-            $code = implode('', $ready);
+            $code = implode("\n", $ready);
             
             $code = "jQuery(document).ready(function(){\n" . $code . "\n});";
             
