@@ -283,7 +283,7 @@ class View extends \yii\web\View
                     }
 
                     $js_file = str_replace(\Yii::getAlias($this->base_path), '', $js_minify_file);
-                    $this->jsFiles[$position][$js_file . '?t=' . fileatime($js_minify_file)] = Html::jsFile($js_file);
+                    $this->jsFiles[$position][$js_file] = Html::jsFile($js_file . '?t=' . fileatime($js_minify_file));
                 }
             }
         }
@@ -306,7 +306,7 @@ class View extends \yii\web\View
                     }
                     $js_file = str_replace(\Yii::getAlias($this->base_path), '', $js_minify_file);
                                     
-                    $this->jsFiles[$position][$js_file . '?t=' . fileatime($js_minify_file)] = Html::jsFile($js_file);
+                    $this->jsFiles[$position][$js_file] = Html::jsFile($js_file . '?t=' . fileatime($js_minify_file));
                     
                   } else {
                     
@@ -334,7 +334,7 @@ class View extends \yii\web\View
             }
             $js_file = str_replace(\Yii::getAlias($this->base_path), '', $js_minify_file);            
             
-            $this->jsFiles[ self::POS_END ][$js_file . '?t=' . fileatime($js_minify_file)] = Html::jsFile($js_file);
+            $this->jsFiles[ self::POS_END ][$js_file] = Html::jsFile($js_file . '?t=' . fileatime($js_minify_file));
             
           }
         }
