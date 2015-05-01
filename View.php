@@ -43,7 +43,7 @@ class View extends \yii\web\View
      */
     public $file_mode = 0664;
 
-    public $js_len_to_minify = 2000; // not used
+    public $js_len_to_minify = 1000; // not used
 
     /**
      * @var array schemes that will be ignored during normalization url
@@ -283,7 +283,7 @@ class View extends \yii\web\View
                     }
 
                     $js_file = str_replace(\Yii::getAlias($this->base_path), '', $js_minify_file);
-                    $this->jsFiles[$position][$js_file] = Html::jsFile($js_file . '?t=' . fileatime($js_minify_file));
+                    $this->jsFiles[$position][$js_file] = Html::jsFile($js_file . '?t=' . filemtime($js_minify_file));
                 }
             }
         }
@@ -294,19 +294,20 @@ class View extends \yii\web\View
           foreach ($this->js as $position => &$codes) {
               foreach($codes as &$code){
                 
-                $code = (new \JSMin($code))->min();
-                
-                //if(strlen($code) > $this->js_len_to_minify){
+                if(strlen($code) > $this->js_len_to_minify){
+
+                  $code = (new \JSMin($code))->min();
                   
                   if($position <> self::POS_READY){
                     
                     $js_minify_file = $this->minify_path . DIRECTORY_SEPARATOR . sha1($code) . '.js';
+
                     if (!file_exists($js_minify_file)) {
                       file_put_contents($js_minify_file, $code);
                     }
                     $js_file = str_replace(\Yii::getAlias($this->base_path), '', $js_minify_file);
                                     
-                    $this->jsFiles[$position][$js_file] = Html::jsFile($js_file . '?t=' . fileatime($js_minify_file));
+                    $this->jsFiles[$position][$js_file] = Html::jsFile($js_file . '?t=' . filemtime($js_minify_file));
                     
                   } else {
                     
@@ -316,25 +317,25 @@ class View extends \yii\web\View
                   
                   unset($this->js[$position]);
                   
-                //}
+                }
                 
               }
           }
-                    
+
           if($ready){
             
-            $code = implode("\n", $ready);
+            $inline_code = implode("\n", $ready);
             
-            $code = "jQuery(document).ready(function(){\n" . $code . "\n});";
+            $inline_code = "jQuery(document).ready(function(){\n" . $inline_code . "\n});";
             
-            $js_minify_file = $this->minify_path . DIRECTORY_SEPARATOR . sha1($code) . '.js';
+            $js_minify_file = $this->minify_path . DIRECTORY_SEPARATOR . sha1($inline_code) . '.js';
             
             if (!file_exists($js_minify_file)) {
-              file_put_contents($js_minify_file, $code);
+              file_put_contents($js_minify_file, $inline_code);
             }
             $js_file = str_replace(\Yii::getAlias($this->base_path), '', $js_minify_file);            
             
-            $this->jsFiles[ self::POS_END ][$js_file] = Html::jsFile($js_file . '?t=' . fileatime($js_minify_file));
+            $this->jsFiles[ self::POS_END ][$js_file] = Html::jsFile($js_file . '?t=' . filemtime($js_minify_file));
             
           }
         }
