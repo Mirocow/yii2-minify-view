@@ -305,6 +305,7 @@ class View extends \yii\web\View
                     if (!file_exists($js_minify_file)) {
                       file_put_contents($js_minify_file, $code);
                     }
+                    
                     $js_file = str_replace(\Yii::getAlias($this->base_path), '', $js_minify_file);
                                     
                     $this->jsFiles[$position][$js_file] = Html::jsFile($js_file . '?t=' . filemtime($js_minify_file));
@@ -316,6 +317,14 @@ class View extends \yii\web\View
                   }
                   
                   unset($this->js[$position]);
+                  
+                } else {
+                  
+                  if($position == self::POS_READY){
+                  
+                    $ready[] = $code;
+                  
+                  }
                   
                 }
                 
