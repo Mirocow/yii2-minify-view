@@ -1,34 +1,40 @@
 {
-	"name": "mirocow/yii2-minify-view",
-	"description": "Yii2 view componen with minification css & js",
-	"keywords": ["yii2", "minify", "view", "js", "css"],
-	"type": "yii2-extension",
-	"license": "BSD-3-Clause",
-	"minimum-stability": "dev",
-	"support": {
-		"issues": "https://github.com/mirocow/yii2-minify-view/issues?state=open",
-		"wiki": "https://github.com/mirocow/yii2-minify-view/wiki",
-		"source": "https://github.com/mirocow/yii2-minify-view"
-	},
-	"authors": [
-		{
-			"name": "Revin Roman",
-			"email": "xgismox@gmail.com",
-			"homepage": "http://phptime.ru/"
-		},
-		{
-			"name": "Mirocow",
-			"email": "mr.mirocow@gmail.com",
-			"homepage": "http://mirocow.com/"
-		}		
-	],
-	"require": {
-		"yiisoft/yii2": "*",
-		"mrclay/minify": "2.1.7"
-	},
-	"autoload": {
-		"psr-4": {
-			"mirocow\\minify\\": ""
-		}
-	}
+  "name": "mirocow/yii2-minify-view",
+  "description": "Yii2 view componen with minification css & js",
+  "keywords": [
+    "yii2",
+    "minify",
+    "view",
+    "js",
+    "css"
+  ],
+  "type": "yii2-extension",
+  "license": "BSD-3-Clause",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://github.com/mirocow/yii2-minify-view/issues?state=open",
+    "wiki": "https://github.com/mirocow/yii2-minify-view/wiki",
+    "source": "https://github.com/mirocow/yii2-minify-view"
+  },
+  "authors": [
+    {
+      "name": "Revin Roman",
+      "email": "xgismox@gmail.com",
+      "homepage": "http://phptime.ru/"
+    },
+    {
+      "name": "Mirocow",
+      "email": "mr.mirocow@gmail.com",
+      "homepage": "http://mirocow.com/"
+    }
+  ],
+  "require": {
+    "yiisoft/yii2": "*",
+    "mrclay/minify": "2.1.7"
+  },
+  "autoload": {
+    "psr-4": {
+      "mirocow\\minify\\": ""
+    }
+  }
 }
