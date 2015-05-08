@@ -140,6 +140,7 @@ class View extends \yii\web\View {
 				$fonts = '';
 
 				foreach ($css_files as $file) {
+
 					$content = file_get_contents(\Yii::getAlias($this->base_path) . $file);
 
 					preg_match_all('|url\(([^)]+)\)|is', $content, $m);
@@ -257,11 +258,12 @@ class View extends \yii\web\View {
 					if (!file_exists($js_minify_file)) {
 						$js = '';
 						foreach ($files as $file => $html) {
-							$file = \Yii::getAlias($this->base_path) . $file;
+							$source_file = $file;
+							$file = \Yii::getAlias($this->base_path) . $source_file;
 							if (!is_file($file)) {
 								continue;
 							}
-							$js .= file_get_contents($file) . ';' . PHP_EOL;
+							$js .= "/*! *****************************\n source: {$source_file}\n***************************** */\n" . file_get_contents($file) . ';' . PHP_EOL;
 						}
 
 						$js = (new \JSMin($js))->min();
