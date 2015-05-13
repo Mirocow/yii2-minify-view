@@ -3,14 +3,19 @@ Yii 2 Minify View Component
 
 Installation
 ------------
-Add in `composer.json`:
+The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+
 ```
-{
-    "require": {
-        "Mirocow/yii2-minify-view": "*"
-    }
-}
+php composer.phar require "mirocow/yii2-minify-view" "*"
 ```
+
+or add
+
+```json
+"mirocow/yii2-minify-view" : "*"
+```
+
+to the require section of your application's `composer.json` file.
 
 Configure
 -----
