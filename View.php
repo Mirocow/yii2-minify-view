@@ -47,7 +47,12 @@ class View extends \yii\web\View {
 	/**
 	 * @var array schemes that will be ignored during normalization url
 	 */
-	public $schemas = ['//', 'http://', 'https://', 'ftp://'];
+	public $schemas = [
+	  '//',
+	  'http://',
+	  'https://',
+	  'ftp://'
+	];
 
 	public $minify_css = true;
 
@@ -148,7 +153,10 @@ class View extends \yii\web\View {
 						$path = dirname($file);
 						$result = [];
 						foreach ($m[0] as $k => $v) {
-							$url = str_replace(['\'', '"'], '', $m[1][$k]);
+							$url = str_replace([
+							  '\'',
+							  '"'
+							], '', $m[1][$k]);
 							if (preg_match('#^(' . implode('|',
 								$this->schemas) . ')#is', $url)) {
 								$result[$m[1][$k]] = '\'' . $url . '\'';
@@ -357,7 +365,12 @@ class View extends \yii\web\View {
 		$result = null;
 
 		if ('url(' === StringHelper::byteSubstr($url, 0, 4)) {
-			$url = str_replace(['url(\'', 'url(', '\')', ')'], '', $url);
+			$url = str_replace([
+			  'url(\'',
+			  'url(',
+			  '\')',
+			  ')'
+			], '', $url);
 
 			if (StringHelper::byteSubstr($url, 0, 2) === '//') {
 				$url = preg_replace('|^//|', 'http://', $url, 1);
