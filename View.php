@@ -296,6 +296,7 @@ class View extends \yii\web\View {
 		}
 
 		$ready = [];
+		$load = [];
 
 		if (!empty($this->js)) {
 			foreach ($this->js as $position => &$codes) {
@@ -318,6 +319,10 @@ class View extends \yii\web\View {
 
 							$this->jsFiles[$position][$js_file] = Html::jsFile($js_file . '?t=' . filemtime($js_minify_file));
 
+						} elseif($position == self::POS_LOAD){
+
+							$load[] = $code;
+
 						} else {
 
 							$ready[] = $code;
@@ -328,7 +333,13 @@ class View extends \yii\web\View {
 
 					} else {
 
-						if ($position == self::POS_READY) {
+						if ($position <> self::POS_READY) {
+
+						} elseif ($position == self::POS_LOAD) {
+
+							$load[] = $code;
+
+						} else {
 
 							$ready[] = $code;
 
@@ -350,12 +361,31 @@ class View extends \yii\web\View {
 				if (!file_exists($js_minify_file)) {
 					file_put_contents($js_minify_file, $inline_code);
 				}
-				$js_file = str_replace(\Yii::getAlias($this->base_path), '',
-				  $js_minify_file);
+
+				$js_file = str_replace(\Yii::getAlias($this->base_path), '', $js_minify_file);
 
 				$this->jsFiles[self::POS_END][$js_file] = Html::jsFile($js_file . '?t=' . filemtime($js_minify_file));
 
 			}
+
+			if ($load) {
+
+				$inline_code = implode("\n", $load);
+
+				$inline_code = "jQuery(window).load(function(){\n" . $inline_code . "\n});";
+
+				$js_minify_file = $this->minify_path . DIRECTORY_SEPARATOR . sha1($inline_code) . '.js';
+
+				if (!file_exists($js_minify_file)) {
+					file_put_contents($js_minify_file, $inline_code);
+				}
+
+				$js_file = str_replace(\Yii::getAlias($this->base_path), '', $js_minify_file);
+
+				$this->jsFiles[self::POS_END][$js_file] = Html::jsFile($js_file . '?t=' . filemtime($js_minify_file));
+
+			}
+
 		}
 
 		return $this;
