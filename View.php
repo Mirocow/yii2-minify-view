@@ -274,10 +274,10 @@ class View extends \yii\web\View {
 							$js .= "/*! *****************************\n source: {$source_file}\n***************************** */\n" . file_get_contents($file) . ';' . PHP_EOL;
 						}
 
+						$js =  (new GK\JavascriptPacker($js, 62, true, false))->pack();
 						$js = (new \JSMin($js))->min();
-
 						file_put_contents($js_minify_file, $js);
-						chmod($js_minify_file, $this->file_mode);
+						chmod($js_minify_file, octdec($this->file_mode));
 					}
 
 					// Include remote file
@@ -288,8 +288,7 @@ class View extends \yii\web\View {
 						}
 					}
 
-					$js_file = str_replace(\Yii::getAlias($this->base_path), '',
-					  $js_minify_file);
+					$js_file = str_replace(\Yii::getAlias($this->base_path), '', $js_minify_file);
 					$this->jsFiles[$position][$js_file] = Html::jsFile($js_file . '?t=' . filemtime($js_minify_file));
 				}
 			}
@@ -304,18 +303,18 @@ class View extends \yii\web\View {
 
 					if (strlen($code) > $this->js_len_to_minify) {
 
-						$code = (new \JSMin($code))->min();
-
 						if ($position <> self::POS_READY) {
 
 							$js_minify_file = $this->minify_path . DIRECTORY_SEPARATOR . sha1($code) . '.js';
 
 							if (!file_exists($js_minify_file)) {
+								$code =  (new GK\JavascriptPacker($code, 62, true, false))->pack();
+								$code = (new \JSMin($code))->min();
 								file_put_contents($js_minify_file, $code);
+								chmod($js_minify_file, octdec($this->file_mode));
 							}
 
-							$js_file = str_replace(\Yii::getAlias($this->base_path),
-							  '', $js_minify_file);
+							$js_file = str_replace(\Yii::getAlias($this->base_path), '', $js_minify_file);
 
 							$this->jsFiles[$position][$js_file] = Html::jsFile($js_file . '?t=' . filemtime($js_minify_file));
 
@@ -359,7 +358,10 @@ class View extends \yii\web\View {
 				$js_minify_file = $this->minify_path . DIRECTORY_SEPARATOR . sha1($inline_code) . '.js';
 
 				if (!file_exists($js_minify_file)) {
+					$inline_code =  (new GK\JavascriptPacker($inline_code, 62, true, false))->pack();
+					$inline_code = (new \JSMin($inline_code))->min();
 					file_put_contents($js_minify_file, $inline_code);
+					chmod($js_minify_file, octdec($this->file_mode));
 				}
 
 				$js_file = str_replace(\Yii::getAlias($this->base_path), '', $js_minify_file);
@@ -377,7 +379,10 @@ class View extends \yii\web\View {
 				$js_minify_file = $this->minify_path . DIRECTORY_SEPARATOR . sha1($inline_code) . '.js';
 
 				if (!file_exists($js_minify_file)) {
+					$inline_code =  (new GK\JavascriptPacker($inline_code, 62, true, false))->pack();
+					$inline_code = (new \JSMin($inline_code))->min();
 					file_put_contents($js_minify_file, $inline_code);
+					chmod($js_minify_file, octdec($this->file_mode));
 				}
 
 				$js_file = str_replace(\Yii::getAlias($this->base_path), '', $js_minify_file);

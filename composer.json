@@ -30,11 +30,18 @@
   ],
   "require": {
     "yiisoft/yii2": "*",
-    "mrclay/minify": "2.1.7"
+    "mrclay/minify": "*",
+    "gkralik/php-uglifyjs": "dev-master"
   },
   "autoload": {
     "psr-4": {
       "mirocow\\minify\\": ""
     }
-  }
+  },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/gkralik/php-uglifyjs.git"
+    },
+  ]
 }
