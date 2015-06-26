@@ -59,7 +59,7 @@ class View extends \yii\web\View
 
   public $minify_js = true;
 
-  public $obfuscate_js = true;
+  public $obfuscate_js = false;
 
   public $obfuscate_js_encoding = 'Normal';
 
