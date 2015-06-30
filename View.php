@@ -41,7 +41,7 @@ class View extends \yii\web\View
   /**
    * @var int chmod of minified file
    */
-  public $file_mode = 0664;
+  public $file_mode = 664;
 
   public $js_len_to_minify = 1000; // not used
 
@@ -238,7 +238,7 @@ class View extends \yii\web\View
         $css = $charsets . $imports . $fonts . $css;
 
         file_put_contents($css_minify_file, $css);
-        chmod($css_minify_file, $this->file_mode);
+        chmod($css_minify_file, octdec($this->file_mode));
       }
 
       $css_file = str_replace(\Yii::getAlias($this->base_path), '',
