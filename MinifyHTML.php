@@ -70,11 +70,11 @@ class MinifyHTML {
     {
         $this->_html = $html;
 
-        $this->_html = preg_replace("~[\r\n]+~", "\n", $this->_html);
+        $this->_html = preg_replace("~[\r\n]+~", "", $this->_html);
 
         $this->_html = preg_replace("~>\s+<~", "><", $html);
 
-        $this->_html = preg_replace("~\s+~", " ", $this->_html);
+        $this->_html = preg_replace("~[ \t]+~", " ", $this->_html);
 
         if (isset($options['xhtml'])) {
             $this->_isXhtml = (bool)$options['xhtml'];
