@@ -30,7 +30,7 @@
     }
   ],
   "require": {
-    "yiisoft/yii2": "*",
+    "yiisoft/yii2": "2.0.*",
     "mrclay/minify": "*",
     "gkralik/php-uglifyjs": "dev-master"
   },

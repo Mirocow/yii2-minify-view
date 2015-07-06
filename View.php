@@ -88,6 +88,7 @@ class View extends \yii\web\View
             throw new \RuntimeException(\Yii::t('app',
                 'Directory for compressed assets is not writable.'));
         }
+               
     }
 
     public function endPage($ajaxMode = false)
