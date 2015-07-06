@@ -177,33 +177,12 @@ class View extends \yii\web\View
                 $charsets = '';
                 $imports = '';
                 $fonts = '';
-
+                
                 foreach ($css_files as $file) {
 
-                    $content = file_get_contents(\Yii::getAlias($this->base_path) . $file);
-
-                    preg_match_all('|url\(([^)]+)\)|is', $content, $m);
-                    if (!empty($m[0])) {
-                        $path = dirname($file);
-                        $result = [];
-                        foreach ($m[0] as $k => $v) {
-                            $url = str_replace([
-                                '\'',
-                                '"'
-                            ], '', $m[1][$k]);
-                            if (preg_match('#^(' . implode('|',
-                                    $this->schemas) . ')#is', $url)) {
-                                $result[$m[1][$k]] = '\'' . $url . '\'';
-                            } else {
-                                $result[$m[1][$k]] = '\'' . $path . DIRECTORY_SEPARATOR . $url . '\'';
-                            }
-                        }
-                        $content = str_replace(array_keys($result),
-                            array_values($result), $content);
-                    }
-
-                    $css .= $content;
-                }
+                    $css .= file_get_contents(\Yii::getAlias($this->base_path) . $file);
+                    
+                }                
 
                 if (true === $this->expand_imports) {
                     preg_match_all('|\@import\s([^;]+);|is', $css, $m);
@@ -213,8 +192,7 @@ class View extends \yii\web\View
                             if (!empty($import_url)) {
                                 $import_content = $this->getImportContent($import_url);
                                 if (!empty($import_content)) {
-                                    $css = str_replace($m[0][$k],
-                                        $import_content, $css);
+                                    $css = str_replace($m[0][$k], $import_content, $css);
                                 }
                             }
                         }
@@ -262,8 +240,8 @@ class View extends \yii\web\View
                 chmod($css_minify_file, octdec($this->file_mode));
             }
 
-            $css_file = str_replace(\Yii::getAlias($this->base_path), '',
-                $css_minify_file);
+            $css_file = str_replace(\Yii::getAlias($this->base_path), '', $css_minify_file);
+                
             $this->cssFiles = [$css_file => Html::cssFile($css_file)];
         }
 
