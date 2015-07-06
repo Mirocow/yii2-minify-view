@@ -39,13 +39,30 @@ return [
 	// ...
 	'components' => [
 		// ...
-		'view' => [
-			'class' => '\mirocow\minify\View',
-			'base_path' => '@app/web', // path alias to web base
-			'minify_path' => '@app/web/minify', // path alias to save minify result
-			'force_charset' => 'UTF-8', // charset forcibly assign, otherwise will use all of the files found charset
-			'expand_imports' => true, // whether to change @import on content
-		]
+    'view' => [
+      'class' => '\mirocow\minify\View',
+      'base_path' => '@app/web', // path alias to web base
+      'minify_path' => '@app/web/minify', // path alias to save minify result
+      'minify_css' => true,
+      'minify_js' => true, //YII_ENV_DEV ? false : true,
+      'js_len_to_minify' => 1000, // Больше этого размера inlinejs будет сжиматься и упаковываться в файл
+      'force_charset' => 'UTF-8', // charset forcibly assign, otherwise will use all of the files found charset
+      'expand_imports' => true, // whether to change @import on content
+      //'css_linebreak_pos' => false,
+      
+      // Theming
+      'theme' => [
+        'basePath' => '@app/themes/myapp',
+        'baseUrl' => '@app/themes/myapp',
+        'pathMap' => [ 
+          '@app/modules' => '@app/themes/myapp/modules',
+          /*'@app/views' => [ 
+            '@webroot/themes/myapp/views',
+          ]*/
+        ],
+      ],          
+      
+    ],
 	]
 ];
 ```
