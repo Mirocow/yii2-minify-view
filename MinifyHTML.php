@@ -72,7 +72,7 @@ class MinifyHTML {
 
         $this->_html = preg_replace("~[\r\n]+~", "", $this->_html);
 
-        $this->_html = preg_replace("~>\s+<~", "><", $html);
+        $this->_html = preg_replace("~>\s+<~", "> <", $html);
 
         $this->_html = preg_replace("~[ \t]+~", " ", $this->_html);
 

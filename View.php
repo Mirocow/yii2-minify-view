@@ -46,16 +46,6 @@ class View extends \yii\web\View
 
     public $js_len_to_minify = 1000; // not used
 
-    /**
-     * @var array schemes that will be ignored during normalization url
-     */
-    public $schemas = [
-        '//',
-        'http://',
-        'https://',
-        'ftp://'
-    ];
-
     public $minify_css = true;
 
     public $minify_js = true;
