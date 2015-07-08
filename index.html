@@ -25,14 +25,28 @@
 <h2>
 <a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
 
-<p>Add in <code>composer.json</code>:</p>
+<p>The preferred way to install this extension is through <a href="http://getcomposer.org/download/">composer</a>.</p>
 
-<pre><code>{
-    "require": {
-        "Mirocow/yii2-minify-view": "*"
-    }
-}
+<h3>
+<a id="add-github-repository" class="anchor" href="#add-github-repository" aria-hidden="true"><span class="octicon octicon-link"></span></a>Add github repository</h3>
+
+<div class="highlight highlight-json"><pre>    <span class="pl-s"><span class="pl-pds">"</span>repositories<span class="pl-pds">"</span></span>: [
+        {
+            <span class="pl-s"><span class="pl-pds">"</span>type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>git<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>url<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>https://github.com/mirocow/yii2-minify-view.git<span class="pl-pds">"</span></span>
+        }
+    ]</pre></div>
+
+<p>and then</p>
+
+<pre><code>php composer.phar require --prefer-dist "mirocow/yii2-minify-view" "*"
 </code></pre>
+
+<p>or add</p>
+
+<div class="highlight highlight-json"><pre><span class="pl-s"><span class="pl-pds">"</span>mirocow/yii2-minify-view<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>*<span class="pl-pds">"</span></span></pre></div>
+
+<p>to the require section of your application's <code>composer.json</code> file.</p>
 
 <h2>
 <a id="configure" class="anchor" href="#configure" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configure</h2>
@@ -42,13 +56,31 @@
 <span class="pl-s1">    <span class="pl-c">// ...</span></span>
 <span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>components<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> [</span>
 <span class="pl-s1">        <span class="pl-c">// ...</span></span>
-<span class="pl-s1">        <span class="pl-s"><span class="pl-pds">'</span>view<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> [</span>
-<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>class<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>\mirocow\minify\View<span class="pl-pds">'</span></span>,</span>
-<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>base_path<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>@app/web<span class="pl-pds">'</span></span>, <span class="pl-c">// path alias to web base</span></span>
-<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>minify_path<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>@app/web/minify<span class="pl-pds">'</span></span>, <span class="pl-c">// path alias to save minify result</span></span>
-<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>force_charset<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>UTF-8<span class="pl-pds">'</span></span>, <span class="pl-c">// charset forcibly assign, otherwise will use all of the files found charset</span></span>
-<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>expand_imports<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">true</span>, <span class="pl-c">// whether to change @import on content</span></span>
-<span class="pl-s1">        ]</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>view<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> [</span>
+<span class="pl-s1">      <span class="pl-s"><span class="pl-pds">'</span>class<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>\mirocow\minify\View<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">      <span class="pl-s"><span class="pl-pds">'</span>base_path<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>@app/web<span class="pl-pds">'</span></span>, <span class="pl-c">// path alias to web base</span></span>
+<span class="pl-s1">      <span class="pl-s"><span class="pl-pds">'</span>minify_path<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>@app/web/minify<span class="pl-pds">'</span></span>, <span class="pl-c">// path alias to save minify result</span></span>
+<span class="pl-s1">      <span class="pl-s"><span class="pl-pds">'</span>minify_css<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">true</span>,</span>
+<span class="pl-s1">      <span class="pl-s"><span class="pl-pds">'</span>minify_js<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">true</span>,</span>
+<span class="pl-s1">      <span class="pl-s"><span class="pl-pds">'</span>minify_html<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">true</span>,</span>
+<span class="pl-s1">      <span class="pl-s"><span class="pl-pds">'</span>js_len_to_minify<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">1000</span>, <span class="pl-c">// Больше этого размера inlinejs будет сжиматься и упаковываться в файл</span></span>
+<span class="pl-s1">      <span class="pl-s"><span class="pl-pds">'</span>force_charset<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>UTF-8<span class="pl-pds">'</span></span>, <span class="pl-c">// charset forcibly assign, otherwise will use all of the files found charset</span></span>
+<span class="pl-s1">      <span class="pl-s"><span class="pl-pds">'</span>expand_imports<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">true</span>, <span class="pl-c">// whether to change @import on content</span></span>
+<span class="pl-s1">      <span class="pl-c">//'css_linebreak_pos' =&gt; false,</span></span>
+<span class="pl-s1"></span>
+<span class="pl-s1">      <span class="pl-c">// Theming</span></span>
+<span class="pl-s1">      <span class="pl-s"><span class="pl-pds">'</span>theme<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> [</span>
+<span class="pl-s1">        <span class="pl-s"><span class="pl-pds">'</span>basePath<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>@app/themes/myapp<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">        <span class="pl-s"><span class="pl-pds">'</span>baseUrl<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>@app/themes/myapp<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">        <span class="pl-s"><span class="pl-pds">'</span>pathMap<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> [ </span>
+<span class="pl-s1">          <span class="pl-s"><span class="pl-pds">'</span>@app/modules<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>@app/themes/myapp/modules<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">          <span class="pl-c">/*'@app/views' =&gt; [ </span></span>
+<span class="pl-s1"><span class="pl-c">            '@webroot/themes/myapp/views',</span></span>
+<span class="pl-s1"><span class="pl-c">          ]*/</span></span>
+<span class="pl-s1">        ],</span>
+<span class="pl-s1">      ],          </span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    ],</span>
 <span class="pl-s1">    ]</span>
 <span class="pl-s1">];</span></pre></div>
 
