@@ -1,41 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <meta charset="UTF-8">
     <title>Yii2-minify-view by Mirocow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
-
   <body>
-    <div id="container">
-      <div class="inner">
+    <section class="page-header">
+      <h1 class="project-name">Yii2-minify-view</h1>
+      <h2 class="project-tagline">Extension for Yii 2 provide https://github.com/mrclay/minify</h2>
+      <a href="https://github.com/Mirocow/yii2-minify-view" class="btn">View on GitHub</a>
+      <a href="https://github.com/Mirocow/yii2-minify-view/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/Mirocow/yii2-minify-view/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-        <header>
-          <h1>Yii2-minify-view</h1>
-          <h2>Extension for Yii 2 provide https://github.com/mrclay/minify</h2>
-        </header>
-
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/Mirocow/yii2-minify-view/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/Mirocow/yii2-minify-view/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/Mirocow/yii2-minify-view" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
-
-        <hr>
-
-        <section id="main_content">
-          <h1>
-<a name="yii-2-minify-view-component" class="anchor" href="#yii-2-minify-view-component"><span class="octicon octicon-link"></span></a>Yii 2 Minify View Component</h1>
+    <section class="main-content">
+      <h1>
+<a id="yii-2-minify-view-component" class="anchor" href="#yii-2-minify-view-component" aria-hidden="true"><span class="octicon octicon-link"></span></a>Yii 2 Minify View Component</h1>
 
 <h2>
-<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
 
 <p>Add in <code>composer.json</code>:</p>
 
@@ -47,32 +35,32 @@
 </code></pre>
 
 <h2>
-<a name="configure" class="anchor" href="#configure"><span class="octicon octicon-link"></span></a>Configure</h2>
+<a id="configure" class="anchor" href="#configure" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configure</h2>
 
-<div class="highlight highlight-php"><pre><span class="o">&lt;?</span>
-<span class="k">return</span> <span class="p">[</span>
-    <span class="c1">// ...</span>
-    <span class="s1">'components'</span> <span class="o">=&gt;</span> <span class="p">[</span>
-        <span class="c1">// ...</span>
-        <span class="s1">'view'</span> <span class="o">=&gt;</span> <span class="p">[</span>
-            <span class="s1">'class'</span> <span class="o">=&gt;</span> <span class="s1">'\mirocow\minify\View'</span><span class="p">,</span>
-            <span class="s1">'base_path'</span> <span class="o">=&gt;</span> <span class="s1">'@app/web'</span><span class="p">,</span> <span class="c1">// path alias to web base</span>
-            <span class="s1">'minify_path'</span> <span class="o">=&gt;</span> <span class="s1">'@app/web/minify'</span><span class="p">,</span> <span class="c1">// path alias to save minify result</span>
-            <span class="s1">'force_charset'</span> <span class="o">=&gt;</span> <span class="s1">'UTF-8'</span><span class="p">,</span> <span class="c1">// charset forcibly assign, otherwise will use all of the files found charset</span>
-            <span class="s1">'expand_imports'</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span> <span class="c1">// whether to change @import on content</span>
-        <span class="p">]</span>
-    <span class="p">]</span>
-<span class="p">];</span>
-</pre></div>
-        </section>
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-k">&lt;</span>?</span>
+<span class="pl-s1"><span class="pl-k">return</span> [</span>
+<span class="pl-s1">    <span class="pl-c">// ...</span></span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>components<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> [</span>
+<span class="pl-s1">        <span class="pl-c">// ...</span></span>
+<span class="pl-s1">        <span class="pl-s"><span class="pl-pds">'</span>view<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> [</span>
+<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>class<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>\mirocow\minify\View<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>base_path<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>@app/web<span class="pl-pds">'</span></span>, <span class="pl-c">// path alias to web base</span></span>
+<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>minify_path<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>@app/web/minify<span class="pl-pds">'</span></span>, <span class="pl-c">// path alias to save minify result</span></span>
+<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>force_charset<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>UTF-8<span class="pl-pds">'</span></span>, <span class="pl-c">// charset forcibly assign, otherwise will use all of the files found charset</span></span>
+<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>expand_imports<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">true</span>, <span class="pl-c">// whether to change @import on content</span></span>
+<span class="pl-s1">        ]</span>
+<span class="pl-s1">    ]</span>
+<span class="pl-s1">];</span></pre></div>
 
-        <footer>
-          Yii2-minify-view is maintained by <a href="https://github.com/Mirocow">Mirocow</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/Mirocow/yii2-minify-view">Yii2-minify-view</a> is maintained by <a href="https://github.com/Mirocow">Mirocow</a>.</span>
 
-        
-      </div>
-    </div>
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
   </body>
 </html>
+
