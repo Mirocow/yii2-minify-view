@@ -166,12 +166,52 @@ class View extends \yii\web\View
             if (!file_exists($css_minify_file)) {
                 $css = '';
                 $charsets = '';
-                $imports = '';
-                $fonts = '';
+                $imports = [];
+                $fonts = [];
                 
                 foreach ($css_files as $file) {
 
                     $css .= file_get_contents(\Yii::getAlias($this->base_path) . $file);
+                    
+                    if (preg_match_all('~\@charset[^;]+~is', $css, $m)) {
+                        foreach ($m[0] as $k => $v) {
+                            $string = $m[0][$k] . ';';
+                            $css = str_replace($string, '', $css);
+                            if (false === $this->force_charset) {
+                                $charsets .= $string . PHP_EOL;
+                            }
+                        }
+                    }
+
+                    if (preg_match_all('~\@import[^;]+~is', $css, $m)) {
+                        foreach ($m[0] as $k => $v) {
+                            $string = $m[0][$k] . ';';
+                            $key = md5($string);
+                            if(empty($imports[$key])){
+                              $imports[$key] = $string;
+                            }
+                            $css = str_replace($string, '', $css);
+                        }
+                    }
+
+                    if (preg_match_all('~\@font-face\s*\{[^}]+\}~is', $css, $m)) {
+                        foreach ($m[0] as $k => $v) {
+                            $string = $m[0][$k];
+                            $key = md5($string);
+                            if(empty($fonts[$key])){
+                              $string = preg_replace_callback('~url\([\'"](.*?)[?#\'"]\)~is', function($matches) use ($file){
+                                
+                                $assets_path = dirname($file);
+                                
+                                return 'url(\'' . $assets_path . '/' . $matches[1] . '\')';
+                                
+                              },
+                              $string);
+                              $fonts[$key] = $string;
+                            }
+                            $css = str_replace($string, '', $css);
+                        }
+                    }                    
                     
                 }                
 
@@ -196,36 +236,7 @@ class View extends \yii\web\View
                     $charsets = '@charset "' . (string) $this->force_charset . '";' . PHP_EOL;
                 }
 
-                preg_match_all('|\@charset[^;]+|is', $css, $m);
-                if (!empty($m[0])) {
-                    foreach ($m[0] as $k => $v) {
-                        $string = $m[0][$k] . ';';
-                        $css = str_replace($string, '', $css);
-                        if (false === $this->force_charset) {
-                            $charsets .= $string . PHP_EOL;
-                        }
-                    }
-                }
-
-                preg_match_all('|\@import[^;]+|is', $css, $m);
-                if (!empty($m[0])) {
-                    foreach ($m[0] as $k => $v) {
-                        $string = $m[0][$k] . ';';
-                        $imports .= $string . PHP_EOL;
-                        $css = str_replace($string, '', $css);
-                    }
-                }
-
-                preg_match_all('|\@font-face\{[^}]+\}|is', $css, $m);
-                if (!empty($m[0])) {
-                    foreach ($m[0] as $k => $v) {
-                        $string = $m[0][$k];
-                        $fonts .= $string . PHP_EOL;
-                        $css = str_replace($string, '', $css);
-                    }
-                }
-
-                $css = $charsets . $imports . $fonts . $css;
+                $css = $charsets . implode(PHP_EOL, $imports) . implode(PHP_EOL, $fonts) . $css;
 
                 file_put_contents($css_minify_file, $css);
                 chmod($css_minify_file, octdec($this->file_mode));
