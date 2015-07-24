@@ -90,7 +90,9 @@ class View extends \yii\web\View
             $this->registerAssetFiles($bundle);
         }
 
-        $this->minify();
+        if (!YII_DEBUG) {
+          $this->minify();
+        }
 
         $content = strtr($content, [
             self::PH_HEAD => $this->renderHeadHtml(),
