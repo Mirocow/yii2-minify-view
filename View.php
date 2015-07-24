@@ -157,9 +157,14 @@ class View extends \yii\web\View
 
             $long_hash = '';
             foreach ($css_files as $file) {
+              
                 $file = \Yii::getAlias($this->base_path) . $file;
+                if (!is_file($file)) {
+                    continue;
+                }                
                 $hash = sha1_file($file);
                 $long_hash .= $hash;
+                
             }
 
             $css_minify_file = $this->minify_path . DIRECTORY_SEPARATOR . sha1($long_hash) . '.css';
@@ -170,8 +175,12 @@ class View extends \yii\web\View
                 $fonts = [];
                 
                 foreach ($css_files as $file) {
-
-                    $css .= file_get_contents(\Yii::getAlias($this->base_path) . $file);
+                  
+                    $file = \Yii::getAlias($this->base_path) . $file;
+                    if (!is_file($file)) {
+                        continue;
+                    }
+                    $css .= file_get_contents($file);                    
                     
                     if (preg_match_all('~\@charset[^;]+~is', $css, $m)) {
                         foreach ($m[0] as $k => $v) {
@@ -200,11 +209,8 @@ class View extends \yii\web\View
                             $key = md5($string);
                             if(empty($fonts[$key])){
                               $string = preg_replace_callback('~url\([\'"](.*?)[?#\'"]\)~is', function($matches) use ($file){
-                                
-                                $assets_path = dirname($file);
-                                
+                                $assets_path = str_replace(\Yii::getAlias($this->base_path), '', dirname($file));
                                 return 'url(\'' . $assets_path . '/' . $matches[1] . '\')';
-                                
                               },
                               $string);
                               $fonts[$key] = $string;
@@ -269,10 +275,12 @@ class View extends \yii\web\View
 
                     $long_hash = '';
                     foreach ($files as $file => $html) {
+                      
                         $file = \Yii::getAlias($this->base_path) . $file;
                         if (!is_file($file)) {
                             continue;
                         }
+                        
                         $hash = sha1_file($file);
                         $long_hash .= $hash;
                     }
