@@ -1,6 +1,8 @@
 Yii 2 Minify View Component
 ===========================
 
+[![Latest Stable Version](https://poser.pugx.org/mirocow/yii2-minify-view/v/stable)](https://packagist.org/packages/mirocow/yii2-minify-view) [![Latest Unstable Version](https://poser.pugx.org/mirocow/yii2-minify-view/v/unstable)](https://packagist.org/packages/mirocow/yii2-minify-view) [![Total Downloads](https://poser.pugx.org/mirocow/yii2-minify-view/downloads)](https://packagist.org/packages/mirocow/yii2-minify-view) [![License](https://poser.pugx.org/mirocow/yii2-minify-view/license)](https://packagist.org/packages/mirocow/yii2-minify-view)
+
 Installation
 ------------
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
