@@ -10,7 +10,7 @@ use mirocow\minify\MinifyHTML;
 use yii\helpers\FileHelper;
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
-use \JSMin\JSMin;
+use JSMin\JSMin;
 
 class View extends \yii\web\View
 {
@@ -304,7 +304,7 @@ class View extends \yii\web\View
                                     $this->obfuscate_js_fastDecode,
                                     $this->obfuscate_js_specialChars))->pack();
                             }
-                            $code = (new \JSMin($code))->min();
+                            $code = (new JSMin($code))->min();
                             $js .= "/*! *****************************\n source: {$source_file}\n***************************** */\n" . $code . PHP_EOL;
                         }
 
@@ -347,7 +347,7 @@ class View extends \yii\web\View
                                         $this->obfuscate_js_fastDecode,
                                         $this->obfuscate_js_specialChars))->pack();
                                 }
-                                $code = (new \JSMin($code))->min();
+                                $code = (new JSMin($code))->min();
                                 file_put_contents($js_minify_file, $code);
                                 chmod($js_minify_file,
                                     octdec($this->file_mode));
@@ -403,7 +403,7 @@ class View extends \yii\web\View
                             $this->obfuscate_js_fastDecode,
                             $this->obfuscate_js_specialChars))->pack();
                     }
-                    $inline_code = (new \JSMin($inline_code))->min();
+                    $inline_code = (new JSMin($inline_code))->min();
                     file_put_contents($js_minify_file, $inline_code);
                     chmod($js_minify_file, octdec($this->file_mode));
                 }
@@ -429,7 +429,7 @@ class View extends \yii\web\View
                             $this->obfuscate_js_fastDecode,
                             $this->obfuscate_js_specialChars))->pack();
                     }
-                    $inline_code = (new \JSMin($inline_code))->min();
+                    $inline_code = (new JSMin($inline_code))->min();
                     file_put_contents($js_minify_file, $inline_code);
                     chmod($js_minify_file, octdec($this->file_mode));
                 }
