@@ -10,6 +10,7 @@ use mirocow\minify\MinifyHTML;
 use yii\helpers\FileHelper;
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
+use \JSMin\JSMin;
 
 class View extends \yii\web\View
 {
