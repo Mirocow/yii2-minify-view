@@ -139,11 +139,11 @@ class MinifyHTML {
         $this->_html = preg_replace('/^\\s+|\\s+$/m', '', $this->_html);
         
         // remove ws around block/undisplayed elements
-        $this->_html = preg_replace('/\\s+(<\\/?(?:area|base(?:font)?|blockquote|body'
-            .'|caption|center|col(?:group)?|dd|dir|div|dl|dt|fieldset|form'
-            .'|frame(?:set)?|h[1-6]|head|hr|html|legend|li|link|map|menu|meta'
-            .'|ol|opt(?:group|ion)|p|param|t(?:able|body|head|d|h||r|foot|itle)'
-            .'|ul)\\b[^>]*>)/i', '$1', $this->_html);
+        $this->_html = preg_replace('/\\s+(<\\/?(?:area|article|aside|base(?:font)?|blockquote|body'
+            .'|canvas|caption|center|col(?:group)?|dd|dir|div|dl|dt|fieldset|figcaption|figure|footer|form'
+            .'|frame(?:set)?|h[1-6]|head|header|hgroup|hr|html|legend|li|link|main|map|menu|meta|nav'
+            .'|ol|opt(?:group|ion)|output|p|param|section|t(?:able|body|head|d|h||r|foot|itle)'
+            .'|ul|video)\\b[^>]*>)/i', '$1', $this->_html);
         
         // remove ws outside of all elements
         $this->_html = preg_replace(
@@ -151,8 +151,8 @@ class MinifyHTML {
             ,'>$1$2$3<'
             ,$this->_html);
         
-        // use space before 1st attribute in open tags (to limit line lengths)
-        $this->_html = preg_replace('/(<[a-z\\-]+)\\s+([^>]+>)/i', "$1 $2", $this->_html);
+        // use newlines before 1st attribute in open tags (to limit line lengths)
+        $this->_html = preg_replace('/(<[a-z\\-]+)\\s+([^>]+>)/i', "$1\n$2", $this->_html);
         
         // fill placeholders
         $this->_html = str_replace(
