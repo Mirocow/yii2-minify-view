@@ -18,7 +18,7 @@ namespace mirocow\minify;
  * @package Minify
  * @author Stephen Clay <steve@mrclay.org>
  */
-class MinifyHTML {
+class Minify_HTML {
     /**
      * @var boolean
      */
