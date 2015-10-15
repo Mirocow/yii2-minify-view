@@ -6,7 +6,7 @@
 
 namespace mirocow\minify;
 
-use mirocow\minify\MinifyHTML;
+use mirocow\minify\Minify_HTML;
 use yii\helpers\FileHelper;
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
@@ -451,7 +451,7 @@ class View extends \yii\web\View
      */
     private function minifyHTML($content){
 
-        return MinifyHTML::minify($content, [
+        return Minify_HTML::minify($content, [
             //'cssMinifier' => function(){},
             //'jsMinifier' => function(){},
             'jsCleanComments' => true,
