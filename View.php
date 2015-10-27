@@ -64,6 +64,10 @@ class View extends \yii\web\View
     public function init()
     {
         parent::init();
+        
+        if(Yii::$app->request->isConsoleRequest{
+            return;
+        }
 
         $minify_path = $this->minify_path = \Yii::getAlias($this->minify_path);
         if (!file_exists($minify_path)) {
