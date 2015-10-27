@@ -65,7 +65,7 @@ class View extends \yii\web\View
     {
         parent::init();
         
-        if(Yii::$app->request->isConsoleRequest{
+        if(Yii::$app->request->isConsoleRequest){
             return;
         }
 
