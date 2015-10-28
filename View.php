@@ -11,6 +11,7 @@ use yii\helpers\FileHelper;
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
 use JSMin\JSMin;
+use Yii;
 
 class View extends \yii\web\View
 {
