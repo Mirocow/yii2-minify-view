@@ -243,6 +243,9 @@ class View extends \yii\web\View
                         }
                     }
                 }
+                
+                // remove comments
+                $css = preg_replace('#/\*(?:[^*]*(?:\*(?!/))*)*\*/#', '', $css);                
 
                 $css = (new \CSSmin())->run($css, $this->css_linebreak_pos);
 
